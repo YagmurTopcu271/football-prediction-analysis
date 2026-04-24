@@ -1,0 +1,29 @@
+---
+title: "Football Match Outcome Prediction"
+author: "Yağmur Topçu"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+
+
+```{r}
+source("../scripts/01_data_loading.R")
+source("../scripts/02_feature_engineering.R")
+source("../scripts/03_modeling.R")
+source("../scripts/04_evaluation.R")
+```
+
+
+
+```{r}
+getwd()
+```
+
+
+
+
+

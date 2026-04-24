@@ -1,0 +1,97 @@
+---
+title: "Football Prediction"
+author: "Yağmur Topçu"
+date: "2026-04-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+
+## Introduction
+
+This project aims to predict football match outcomes (Home Win, Draw, Away Win) 
+using statistical features such as team form, betting odds, and expected goals (xG).
+
+The goal is to compare different machine learning models and evaluate their performance.
+
+## Data
+
+The dataset consists of multiple seasons of premier league football matches, including:
+- Match results
+- Betting odds
+- Team performance metrics
+
+Additional advanced metrics such as xG and PPDA are incorporated.
+
+```{r}
+library(here)
+library(caret)
+```
+
+
+```{r}
+source(here("scripts", "01_data_loading.R"))
+source(here("scripts", "02_feature_engineering.R"))
+source(here("scripts", "03_modeling.R"))
+source(here("scripts", "04_evaluation.R"))
+```
+## Feature Engineering
+
+Several features were created to capture team performance:
+- Rolling form (last 5 matches)
+- Goal difference trends
+- Betting implied probabilities
+- xG-based attacking and defensive strength
+
+## Modeling
+
+The following models were implemented:
+- Multinomial Logistic Regression
+- Random Forest
+Models were trained on historical seasons and tested on the latest season.
+
+```{r}
+ggplot(results, aes(x = reorder(Model, Accuracy), y = Accuracy)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Model Performance Comparison",
+    x = "Model",
+    y = "Accuracy"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+print(results)
+```
+
+```{r}
+caret::confusionMatrix(as.factor(pred_rf), as.factor(test$FTR))
+
+```
+
+
+## Insights
+
+- Betting odds are the strongest predictors of match outcomes
+- xG features improve model performance
+- Random Forest achieves the highest accuracy
+- Draw outcomes remain the most difficult to predict
+
+
+
+
+
+
+
+
+
+
